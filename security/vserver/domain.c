@@ -13,7 +13,7 @@ void vserver_update_domain(struct task_struct *const task)
 
 	blake2s_init(&blake, BLAKE2S_HASH_SIZE);
 	blake2s_update(&blake, VSERVER_RUNTIME_SALT.b, UUID_SIZE);
-	blake2s_update(&blake, (const u8*) __task_cred(task)->user_ns, sizeof(struct task_struct*));
+	blake2s_update(&blake, (const u8*) __task_cred(task)->user_ns, sizeof(struct user_namespace*));
 	//@TODO: RCU sur cgroups
 	blake2s_update(&blake, (const u8*) task->cgroups->dfl_cgrp, sizeof(struct cgroup*));
 	blake2s_final(&blake, vserver_cred(__task_cred(task))->domain_id);
@@ -22,5 +22,9 @@ void vserver_update_domain(struct task_struct *const task)
 bool vserver_is_same_domain(const struct task_struct *const task1,
 							const struct task_struct *const task2)
 {
-	return crypto_memneq(vserver_cred(__task_cred(task1))->domain_id, vserver_cred(__task_cred(task2))->domain_id, BLAKE2S_HASH_SIZE);
+	return !crypto_memneq(
+		vserver_cred(__task_cred(task1))->domain_id,
+		vserver_cred(__task_cred(task2))->domain_id,
+		BLAKE2S_HASH_SIZE
+	);
 }

@@ -22,6 +22,7 @@ struct lsm_blob_sizes vserver_blob_sizes __lsm_ro_after_init = {
 
 static int __init vserver_init(void)
 {
+	vserver_add_cred_hooks();
 	vserver_add_ptrace_hooks();
 	uuid_gen(&VSERVER_RUNTIME_SALT);
 	pr_info("Up and running.\n");
