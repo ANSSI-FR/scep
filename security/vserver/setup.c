@@ -11,7 +11,9 @@
 #include <linux/init.h>
 #include <linux/lsm_hooks.h>
 
+#include "common.h"
 #include "cred.h"
+#include "proc.h"
 #include "ptrace.h"
 
 uuid_t VSERVER_RUNTIME_SALT;
@@ -24,6 +26,7 @@ static int __init vserver_init(void)
 {
 	vserver_add_cred_hooks();
 	vserver_add_ptrace_hooks();
+	vserver_add_proc_hooks();
 	uuid_gen(&VSERVER_RUNTIME_SALT);
 	pr_info("Up and running.\n");
 	return 0;

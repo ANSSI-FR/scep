@@ -15,9 +15,8 @@
 static int vserver_ptrace_access_check(struct task_struct *child,
 				    unsigned int mode)
 {
-	if (!vserver_is_same_domain(current, child)) {
+	if (!vserver_is_same_domain(current, child))
 		return -EPERM;
-	}
 
 	return 0;
 }
