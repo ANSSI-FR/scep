@@ -17,6 +17,6 @@
 #undef pr_fmt
 #endif
 
-#define pr_fmt(fmt) VSERVER_NAME ": " fmt
+#define pr_fmt(fmt) "%s:%s: " fmt, VSERVER_NAME, __func__
 
 #endif /* _SECURITY_VSERVER_COMMON_H */
