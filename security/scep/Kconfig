@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: GPL-2.0-only
-config SECURITY_VSERVER
-	bool "VServer support"
+config SECURITY_SCEP
+	bool "SCEP support"
 	depends on SECURITY
 	select CRYPTO
 	select CRYPTO_LIB_BLAKE2S

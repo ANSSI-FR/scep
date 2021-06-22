@@ -240,7 +240,7 @@ source "security/safesetid/Kconfig"
 source "security/lockdown/Kconfig"
 
 source "security/integrity/Kconfig"
-source "security/vserver/Kconfig"
+source "security/scep/Kconfig"
 
 choice
 	prompt "First legacy 'major LSM' to be initialized"

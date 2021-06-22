@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-2.0-only
 /*
- * VServer Linux security module.
+ * SCEP Linux security module.
  *
  * Author: Nicolas Bouchinet <nicolas.bouchinet@ssi.gouv.fr>
  * Author: Vincent Dagonneau <vincent.dagonneau@ssi.gouv.fr>
@@ -18,7 +18,7 @@
 static int hook_cred_prepare(struct cred *const new,
 		const struct cred *const old, const gfp_t gfp)
 {
-	vserver_update_domain(current, new);
+	scep_update_domain(current, new);
 
 	return 0;
 }
@@ -55,7 +55,7 @@ void hook_bprm_committed_creds(struct linux_binprm *bprm)
 {
 }
 
-static struct security_hook_list vserver_hooks[] __lsm_ro_after_init = {
+static struct security_hook_list scep_hooks[] __lsm_ro_after_init = {
 	LSM_HOOK_INIT(cred_prepare, hook_cred_prepare),
 	LSM_HOOK_INIT(cred_free, hook_cred_free),
 	LSM_HOOK_INIT(cred_transfer, hook_cred_transfer),
@@ -66,8 +66,8 @@ static struct security_hook_list vserver_hooks[] __lsm_ro_after_init = {
 	LSM_HOOK_INIT(bprm_committed_creds, hook_bprm_committed_creds),
 };
 
-__init void vserver_add_cred_hooks(void)
+__init void scep_add_cred_hooks(void)
 {
-	security_add_hooks(vserver_hooks, ARRAY_SIZE(vserver_hooks),
-			"vserver");
+	security_add_hooks(scep_hooks, ARRAY_SIZE(scep_hooks),
+			"scep");
 }

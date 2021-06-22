@@ -2,7 +2,7 @@
 
 CFLAGS += -Wall -O2
 
-TEST_GEN_PROGS := vserver-tests
+TEST_GEN_PROGS := scep-tests
 
 include ../lib.mk
 
